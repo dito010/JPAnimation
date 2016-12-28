@@ -4,6 +4,6 @@
 
 模仿Airbnb首页过渡动画
 
-<p align="center" >
+<p align="left" >
 <img src="Images/JPAnimationDemo.gif" title="JPAnimationDemo" float=left>
 </p>
