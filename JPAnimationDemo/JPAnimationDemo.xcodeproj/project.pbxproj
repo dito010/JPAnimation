@@ -119,6 +119,7 @@
 		5F1E3C861E14185500E1C1F7 /* JPAnimationDemo */ = {
 			isa = PBXGroup;
 			children = (
+				5F1E3CE31E15097300E1C1F7 /* JPAnimationTool */,
 				5F1E3CE21E14188D00E1C1F7 /* SecondViewController */,
 				5F1E3CE11E14188400E1C1F7 /* FirstViewController */,
 				5F1E3C9E1E14186000E1C1F7 /* JPNavigationController */,
@@ -185,8 +186,6 @@
 				5F1E3CD61E14187900E1C1F7 /* JPTableViewCell.xib */,
 				5F1E3CD71E14187900E1C1F7 /* JPTableViewController.h */,
 				5F1E3CD81E14187900E1C1F7 /* JPTableViewController.m */,
-				5F1E3CCC1E14187200E1C1F7 /* JPAnimationTool.h */,
-				5F1E3CCD1E14187200E1C1F7 /* JPAnimationTool.m */,
 				5F1E3CCE1E14187200E1C1F7 /* JPCollectionViewCell.h */,
 				5F1E3CCF1E14187200E1C1F7 /* JPCollectionViewCell.m */,
 				5F1E3CD01E14187200E1C1F7 /* JPCollectionViewCell.xib */,
@@ -202,6 +201,15 @@
 				5F1E3CDB1E14187900E1C1F7 /* JPViewController.xib */,
 			);
 			name = SecondViewController;
+			sourceTree = "<group>";
+		};
+		5F1E3CE31E15097300E1C1F7 /* JPAnimationTool */ = {
+			isa = PBXGroup;
+			children = (
+				5F1E3CCC1E14187200E1C1F7 /* JPAnimationTool.h */,
+				5F1E3CCD1E14187200E1C1F7 /* JPAnimationTool.m */,
+			);
+			name = JPAnimationTool;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -450,6 +458,7 @@
 				5F1E3C9D1E14185500E1C1F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
