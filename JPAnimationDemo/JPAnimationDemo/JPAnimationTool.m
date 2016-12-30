@@ -19,11 +19,8 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
 
 @interface JPAnimationTool()
 
-/** 上半部分做动画的 ImageView */
-@property(nonatomic, strong)UIImageView *upAnimationImageView;
-
-/** 下半部分做动画的 ImageView */
-@property(nonatomic, strong)UIImageView *downAnimationImageView;
+/** 用来做动画的 ImageView 数组 */
+@property(nonatomic, strong)NSMutableArray<UIImageView *> *animationImageViewReusePool;
 
 @end
 
@@ -68,18 +65,21 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
     
     
     // 添加做动画需要的上下两个 ImageView, 以及点击的那个 item 的 ImageView 到窗口.
-    self.upAnimationImageView.frame = upAnimationImageViewFrame_start;
-    self.upAnimationImageView.image = upAnimationImage;
-    [viewController.view.window addSubview:self.upAnimationImageView];
+    UIImageView *upAnimationImageView = [self dequeueReusableImageView];
+    upAnimationImageView.frame = upAnimationImageViewFrame_start;
+    upAnimationImageView.image = upAnimationImage;
+    [viewController.view.window addSubview:upAnimationImageView];
     
-    self.downAnimationImageView.frame = downAnimationImageViewFrame_start;
-    self.downAnimationImageView.image = downAnimationImage;
-    [viewController.view.window addSubview:self.downAnimationImageView];
+    
+    UIImageView *downAnimationImageView = [self dequeueReusableImageView];
+    downAnimationImageView.frame = downAnimationImageViewFrame_start;
+    downAnimationImageView.image = downAnimationImage;
+    [viewController.view.window addSubview:downAnimationImageView];
     
     
     // 处理 collectionView 每个可见 cell, 创建一个做动画的 ImageView 添加到窗口
     NSDictionary *dict = [self addAnimationImageViewsForCenterWithCollectionView:collectionView forViewController:viewController];
-    NSMutableArray *animationImageViews = dict[@"animationImageViews"];
+    __block NSMutableArray *animationImageViews = dict[@"animationImageViews"];
     NSMutableArray *animationFrames_start = dict[@"animationFrames_start"];
     
     
@@ -96,10 +96,10 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
         viewController.navigationController.navigationBar.hidden = YES;
         
         // 上部上移
-        self.upAnimationImageView.frame = upAnimationImageViewFrame_end;
+        upAnimationImageView.frame = upAnimationImageViewFrame_end;
         
         // 下部下移
-        self.downAnimationImageView.frame = downAnimationImageViewFrame_end;
+        downAnimationImageView.frame = downAnimationImageViewFrame_end;
         
         // collectionView 每个 cell 的照片动画
         for (int i = 0; i<animationImageViews.count; i++) {
@@ -122,11 +122,13 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
         });
         
         // 重置动画控件
-        [self.upAnimationImageView removeFromSuperview];
-        [self.downAnimationImageView removeFromSuperview];
+        [self enqueueForImageView:upAnimationImageView];
+        [self enqueueForImageView:downAnimationImageView];
         for (UIImageView *imageView in animationImageViews) {
-            [imageView removeFromSuperview];
+            [self enqueueForImageView:imageView];
         }
+        animationImageViews = nil;
+        
         viewController.view.hidden = NO;
     }];
     
@@ -137,7 +139,7 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
                                      downAnimationImage:downAnimationImage
                       downAnimationImageViewFrame_start:downAnimationImageViewFrame_start
                         downAnimationImageViewFrame_end:downAnimationImageViewFrame_end
-                                    animationImageViews:animationImageViews
+                                    visiableCells:collectionView.visibleCells
                                     animationFrames_end:animationFrames_end
                                   animationFrames_start:animationFrames_start
                                       forViewController:viewController
@@ -160,7 +162,8 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
         NSValue *value = [NSValue valueWithCGRect:rect];
         [animationFrames_start addObject:value];
         
-        UIImageView *animationImageView = [UIImageView new];
+        // 从缓存池中取复用的 UIImageView.
+        UIImageView *animationImageView = [self dequeueReusableImageView];
         animationImageView.image = imageView.image;
         animationImageView.frame = rect;
         [viewController.view.window addSubview:animationImageView];
@@ -170,6 +173,7 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
                            @"animationImageViews" : animationImageViews,
                            @"animationFrames_start" : animationFrames_start
                            };
+    
     return dict;
     
 }
@@ -209,7 +213,7 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
                      downAnimationImage:(UIImage *)downAnimationImage
       downAnimationImageViewFrame_start:(CGRect)downAnimationImageViewFrame_start
         downAnimationImageViewFrame_end:(CGRect)downAnimationImageViewFrame_end
-                    animationImageViews:(NSArray *)animationImageViews
+                    visiableCells:(NSArray *)visiableCells
                     animationFrames_end:(NSArray *)animationFrames_end
                   animationFrames_start:(NSArray *)animationFrames_start
                       forViewController:(UIViewController *)viewController
@@ -225,21 +229,27 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
         
         
         // 添加做动画需要的上下两个 ImageView, 以及点击的那个 item 的 ImageView 到窗口.
-        strongSelf.upAnimationImageView.frame = upAnimationImageViewFrame_end;
-        strongSelf.upAnimationImageView.image = upAnimationImage;
-        [tab.view.window addSubview:strongSelf.upAnimationImageView];
+        UIImageView *upAnimationImageView = [strongSelf dequeueReusableImageView];
+        upAnimationImageView.frame = upAnimationImageViewFrame_end;
+        upAnimationImageView.image = upAnimationImage;
+        [tab.view.window addSubview:upAnimationImageView];
         
-        strongSelf.downAnimationImageView.frame = downAnimationImageViewFrame_end;
-        strongSelf.downAnimationImageView.image = downAnimationImage;
-        [tab.view.window addSubview:strongSelf.downAnimationImageView];
+        
+        UIImageView *downAnimationImageView = [strongSelf dequeueReusableImageView];
+        downAnimationImageView.frame = downAnimationImageViewFrame_end;
+        downAnimationImageView.image = downAnimationImage;
+        [tab.view.window addSubview:downAnimationImageView];
         
         
         // collectionView 每个 cell 的照片动画
-        for (int i = 0; i<animationImageViews.count; i++) {
-            UIImageView *imageView = animationImageViews[i];
+        __block NSMutableArray *animationImageViews = [NSMutableArray array];
+        for (int i = 0; i<visiableCells.count; i++) {
+            UIImageView *imageView = [strongSelf dequeueReusableImageView];
+            [animationImageViews addObject:imageView];
             NSValue *value = animationFrames_end[i];
             CGRect rect = [value CGRectValue];
             imageView.frame = rect;
+            imageView.image = [strongSelf getImageViewForCollectionCell:visiableCells[i]].image;
             [tab.view.window addSubview:imageView];
         }
         
@@ -247,10 +257,10 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
         [UIView animateWithDuration:0.35 delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
             
             // 上部下移
-            strongSelf.upAnimationImageView.frame = upAnimationImageViewFrame_start;
+            upAnimationImageView.frame = upAnimationImageViewFrame_start;
             
             // 下部上移
-            strongSelf.downAnimationImageView.frame = downAnimationImageViewFrame_start;
+            downAnimationImageView.frame = downAnimationImageViewFrame_start;
             
             // collectionView 每个 cell 的照片动画
             for (int i = 0; i<animationImageViews.count; i++) {
@@ -263,15 +273,15 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
         }completion:^(BOOL finished) {
             
             // 重置动画控件
-            [strongSelf.upAnimationImageView removeFromSuperview];
-            [strongSelf.downAnimationImageView removeFromSuperview];
+            [strongSelf enqueueForImageView:upAnimationImageView];
+            [strongSelf enqueueForImageView:downAnimationImageView];
             
             [presentViewController.navigationController popViewControllerAnimated:NO];
             
-            
             for (UIImageView *imageView in animationImageViews) {
-                [imageView removeFromSuperview];
+                [strongSelf enqueueForImageView:imageView];
             }
+            animationImageViews = nil;
             
             // 状态栏暂时隐藏
             viewController.navigationController.navigationBar.hidden = NO;
@@ -284,18 +294,27 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
 #pragma mark --------------------------------------------------
 #pragma mark Private
 
--(UIImageView *)upAnimationImageView{
-    if (!_upAnimationImageView) {
-        _upAnimationImageView = [UIImageView new];
+-(void)enqueueForImageView:(UIImageView *)imageView{
+    if (imageView.superview) {
+        imageView.image = nil;
+        [imageView removeFromSuperview];
+        [self.animationImageViewReusePool addObject:imageView];
     }
-    return _upAnimationImageView;
 }
 
--(UIImageView *)downAnimationImageView{
-    if (!_downAnimationImageView ) {
-        _downAnimationImageView = [UIImageView new];
+-(UIImageView *)dequeueReusableImageView{
+    UIImageView *resultImageView = nil;
+    if (!self.animationImageViewReusePool) {
+        self.animationImageViewReusePool = [NSMutableArray array];
     }
-    return _downAnimationImageView;
+    if (self.animationImageViewReusePool.count>0) {
+        resultImageView = self.animationImageViewReusePool.firstObject;
+        [self.animationImageViewReusePool removeObject:resultImageView];
+    }
+    else{
+        resultImageView = [UIImageView new];
+    }
+    return resultImageView;
 }
 
 -(UIImageView *)getImageViewForCollectionCell:(UICollectionViewCell *)cell{

@@ -32,7 +32,7 @@
             [strongSelf.view layoutIfNeeded];
             
             strongSelf.detailImageUpCons.constant = 0;
-            [UIView animateWithDuration:0.46 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [UIView animateWithDuration:0.45 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 
                 strongSelf.detailImageView.alpha = 1;
                 [strongSelf.view layoutIfNeeded];
