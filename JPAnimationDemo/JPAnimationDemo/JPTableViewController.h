@@ -2,8 +2,7 @@
 //  JPTableViewController.h
 //  JPAnimation
 //
-//  Created by lava on 2016/12/27.
-//  Copyright © 2016年 NewPan. All rights reserved.
+//  Hello! I am NewPan from Guangzhou of China, Glad you could use my framework, If you have any question or wanna to contact me, please open https://github.com/Chris-Pan or http://www.jianshu.com/users/e2f2d779c022/latest_articles
 //
 
 #import <UIKit/UIKit.h>

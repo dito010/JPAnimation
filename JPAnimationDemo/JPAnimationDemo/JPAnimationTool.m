@@ -2,8 +2,7 @@
 //  JPAnimationTool.m
 //  JPAnimation
 //
-//  Created by lava on 2016/12/28.
-//  Copyright © 2016年 NewPan. All rights reserved.
+//  Hello! I am NewPan from Guangzhou of China, Glad you could use my framework, If you have any question or wanna to contact me, please open https://github.com/Chris-Pan or http://www.jianshu.com/users/e2f2d779c022/latest_articles
 //
 
 #import "JPAnimationTool.h"
@@ -19,11 +18,10 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
 
 @interface JPAnimationTool()
 
-/** 用来做动画的 ImageView 数组 */
+/** 用来做动画的 ImageView 缓存池 */
 @property(nonatomic, strong)NSMutableArray<UIImageView *> *animationImageViewReusePool;
 
 @end
-
 
 @implementation JPAnimationTool
 
