@@ -119,10 +119,10 @@
 		5F1E3C861E14185500E1C1F7 /* JPAnimationDemo */ = {
 			isa = PBXGroup;
 			children = (
+				5F1E3C9E1E14186000E1C1F7 /* JPNavigationController */,
 				5F1E3CE31E15097300E1C1F7 /* JPAnimationTool */,
 				5F1E3CE21E14188D00E1C1F7 /* SecondViewController */,
 				5F1E3CE11E14188400E1C1F7 /* FirstViewController */,
-				5F1E3C9E1E14186000E1C1F7 /* JPNavigationController */,
 				5F1E3C8A1E14185500E1C1F7 /* AppDelegate.h */,
 				5F1E3C8B1E14185500E1C1F7 /* AppDelegate.m */,
 				5F1E3C931E14185500E1C1F7 /* Assets.xcassets */,

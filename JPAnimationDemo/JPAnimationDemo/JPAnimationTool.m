@@ -27,7 +27,7 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
 
 @implementation JPAnimationTool
 
--(JPContainIDBlock)begainAnimationWithCollectionViewDidSelectedItemIndexPath:(NSIndexPath *)indexPath collcetionView:(UICollectionView *)collectionView forViewController:(UIViewController *)viewController presentViewController:(UIViewController *)presentViewController fadeBlock:(JPNoParaBlock)fadeBlock closeBlock:(JPContainIDBlock)closeBlock{
+-(JPContainIDBlock)begainAnimationWithCollectionViewDidSelectedItemIndexPath:(NSIndexPath *)indexPath collcetionView:(UICollectionView *)collectionView forViewController:(UIViewController *)viewController presentViewController:(UIViewController *)presentViewController afterPresentedBlock:(JPNoParaBlock)afterPresentedBlock{
     
     // 拿到 collectionView 点击的那个 cell 的imageView.
     UICollectionViewCell *tapCollectionCell = [collectionView cellForItemAtIndexPath:indexPath];
@@ -49,10 +49,10 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
     CGRect downAnimationImageViewFrame_end = CGRectMake(0, JPScreenHeight, JPScreenWidth, JPScreenHeight - downTailorY);
     
     // For Test, 添加一个红色的遮罩来查看自己换算的frame是否正确
-    //    UIView *redView = [[UIView alloc]init];
-    //    redView.backgroundColor = [UIColor redColor];
-    //    redView.frame = downAnimationImageViewFrame;
-    //    [self.view.window addSubview:redView];
+//        UIView *redView = [[UIView alloc]init];
+//        redView.backgroundColor = [UIColor redColor];
+//        redView.frame = downAnimationImageViewFrame;
+//        [self.view.window addSubview:redView];
     
     
     // 将当前窗口进行截图
@@ -116,8 +116,8 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             // 第二个界面淡入上移动画调用
-            if (fadeBlock) {
-                fadeBlock();
+            if (afterPresentedBlock) {
+                afterPresentedBlock();
             }
         });
         
@@ -322,7 +322,7 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
     UIView *collectionViewContentView = cell.subviews.firstObject;
     NSArray *views = collectionViewContentView.subviews;
     for (UIView *view in views) {
-        if (view.tag == 1000) {
+        if (view.tag == JPCoverImageViewTag) {
             result = (UIImageView *)view;
             break;
         }

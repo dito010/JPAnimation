@@ -39,13 +39,6 @@
                 
             }completion:nil];
         };
-        
-//        self.outAnimationBlock_finished = ^{
-//            __strong typeof(weakSelf) strongSelf = weakSelf;
-//            if (!strongSelf) return;
-//            
-//            [strongSelf.navigationController popViewControllerAnimated:NO];
-//        };
     }
     return self;
 }

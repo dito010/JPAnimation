@@ -7,6 +7,7 @@
 //
 
 #import "JPCollectionViewCell.h"
+#import "JPAnimationTool.h"
 
 @interface JPCollectionViewCell()
 
@@ -19,7 +20,7 @@
     [super awakeFromNib];
     
     // 给显示封面的这个 imageView 加一个 tag.
-    self.coverImageView.tag = 1000;
+    self.coverImageView.tag = JPCoverImageViewTag;
 }
 
 -(void)setDataString:(NSString *)dataString{

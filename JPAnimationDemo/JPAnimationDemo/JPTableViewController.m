@@ -43,7 +43,7 @@ static NSString *JPTableViewReuseID = @"JPTableViewReuseID";
     JPViewController *presentViewController = [JPViewController new];
     presentViewController.coverImage = collectionCell.coverImageView.image;
     
-    presentViewController.closeBlock =  [self.animationTool begainAnimationWithCollectionViewDidSelectedItemIndexPath:indexPath collcetionView:collectionView forViewController:self presentViewController:presentViewController fadeBlock:presentViewController.fadeBlock closeBlock:presentViewController.closeBlock];
+    presentViewController.closeBlock =  [self.animationTool begainAnimationWithCollectionViewDidSelectedItemIndexPath:indexPath collcetionView:collectionView forViewController:self presentViewController:presentViewController afterPresentedBlock:presentViewController.fadeBlock];
 }
 
 #pragma mark --------------------------------------------------
