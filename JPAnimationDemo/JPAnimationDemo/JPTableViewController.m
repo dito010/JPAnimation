@@ -9,8 +9,8 @@
 #import "JPTableViewCell.h"
 #import "JPViewController.h"
 #import "JPCollectionViewCell.h"
-#import "JPNavigationControllerKit.h"
-#import "JPSnapTool.h"
+#import <JPNavigationControllerKit.h>
+#import <JPNavigationControllerCompat.h>
 #import "JPAnimationTool.h"
 
 @interface JPTableViewController ()<UITableViewDataSource, UITableViewDelegate, JPTableViewCellDelegate>
@@ -75,14 +75,10 @@ static NSString *JPTableViewReuseID = @"JPTableViewReuseID";
 #pragma mark Setup
 
 -(void)setup{
-    
-    // 选择状态栏样式
-    self.navigationController.jp_prefersStatusBarStyle = JPStatusBarStyleLight;
-    
     // 自定义导航栏
     UIImageView *navBarImageView = [UIImageView new];
     navBarImageView.image = [UIImage imageNamed:@"navBar"];
-    navBarImageView.frame = CGRectMake(0, -20, JPScreenWidth, 64);
+    navBarImageView.frame = CGRectMake(0, -20, JPScreenW, 64);
     [self.navigationController.navigationBar addSubview:navBarImageView];
     
     

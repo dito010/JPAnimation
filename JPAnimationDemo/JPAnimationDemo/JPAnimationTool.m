@@ -7,7 +7,9 @@
 
 #import "JPAnimationTool.h"
 #import "JPNavigationControllerKit.h"
-#import "JPSnapTool.h"
+#import <JPNavigationControllerKit.h>
+#import <JPNavigationControllerCompat.h>
+#import <UIView+ScreenCapture.h>
 
 typedef NS_OPTIONS(NSInteger, JPTailorType) {
     JPTailorTypeNone = 1 << 0,
@@ -39,12 +41,12 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
     CGFloat downTailorY = upTailorY + tapImageViewFrame.size.height;
     
     // 计算做动画的 ImageView 的初始 frame (相对坐标系为 : 窗口坐标)
-    CGRect upAnimationImageViewFrame_start = CGRectMake(0, 0, JPScreenWidth, upTailorY);
-    CGRect downAnimationImageViewFrame_start = CGRectMake(0, downTailorY, JPScreenWidth, JPScreenHeight - downTailorY);
+    CGRect upAnimationImageViewFrame_start = CGRectMake(0, 0, JPScreenW, upTailorY);
+    CGRect downAnimationImageViewFrame_start = CGRectMake(0, downTailorY, JPScreenW, JPScreenH - downTailorY);
     
     // 计算做动画的 ImageView 的终点 frame (相对坐标系为 : 窗口坐标)
-    CGRect upAnimationImageViewFrame_end = CGRectMake(0, -upTailorY, JPScreenWidth, upTailorY);
-    CGRect downAnimationImageViewFrame_end = CGRectMake(0, JPScreenHeight, JPScreenWidth, JPScreenHeight - downTailorY);
+    CGRect upAnimationImageViewFrame_end = CGRectMake(0, -upTailorY, JPScreenW, upTailorY);
+    CGRect downAnimationImageViewFrame_end = CGRectMake(0, JPScreenH, JPScreenW, JPScreenH - downTailorY);
     
     // For Test, 添加一个红色的遮罩来查看自己换算的frame是否正确
 //        UIView *redView = [[UIView alloc]init];
@@ -54,7 +56,7 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
     
     
     // 将当前窗口进行截图
-    UIImage *snapImage = [JPSnapTool snapShotWithView:viewController.view.window];
+    UIImage *snapImage = [viewController.view.window jp_captureCurrentView];
     
     // 根据裁剪点分别裁剪图片, 待做动画的时候使用
     UIImage *upAnimationImage = [self tailorImage:snapImage andTailorPoint:upTailorY useTailorType:JPTailorTypeUp];
@@ -179,7 +181,7 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
 -(NSMutableArray *)calculateEndAniamtionFrameForCenterImageViewWithAnimationFrames_start:(NSArray *)animationFrames_start tapImageViewFrame:(CGRect)tapImageViewFrame{
     
     // 根据点击的那个 cell 的目标位置推断出临近可见 cell 的目标位置 (相对坐标系为 : 窗口坐标)
-    CGRect tapAnimationImageViewFrame_end = CGRectMake(0, 0, JPScreenWidth, JPScreenWidth*2.0/3.0);
+    CGRect tapAnimationImageViewFrame_end = CGRectMake(0, 0, JPScreenW, JPScreenW*2.0/3.0);
     NSMutableArray *animationFrames_end = [NSMutableArray arrayWithCapacity:animationFrames_start.count];
     for (int i = 0; i<animationFrames_start.count; i++) {
         NSValue *value = animationFrames_start[i];
@@ -188,14 +190,14 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
         CGRect targetRect = tapAnimationImageViewFrame_end;
         if (rect.origin.x < tapImageViewFrame.origin.x) { // 在点击 cell 的左侧 ⬅️
             CGFloat detla = tapImageViewFrame.origin.x - rect.origin.x;
-            targetRect.origin.x = -(detla * JPScreenWidth)/tapImageViewFrame.size.width;
+            targetRect.origin.x = -(detla * JPScreenW)/tapImageViewFrame.size.width;
         }
         else if (rect.origin.x == tapImageViewFrame.origin.x){ // 就是当前点击的 cell
             
         }
         else{ // 在点击 cell 的右侧 ➡️
             CGFloat detla = rect.origin.x - tapImageViewFrame.origin.x;
-            targetRect.origin.x = (detla*JPScreenWidth)/tapImageViewFrame.size.width;
+            targetRect.origin.x = (detla*JPScreenW)/tapImageViewFrame.size.width;
         }
         
         NSValue *targetValue = [NSValue valueWithCGRect:targetRect];

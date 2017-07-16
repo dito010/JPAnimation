@@ -52,7 +52,7 @@
     self.detailImageUpCons.constant = 25;
     [self.view layoutIfNeeded];
     
-    self.navigationController.jp_pushDelegate = self;
+    [self.navigationController jp_registerNavigtionControllerDelegate:self];
     self.navigationController.jp_interactivePopMaxAllowedInitialDistanceToLeftEdge = 100;
 }
 
@@ -60,7 +60,7 @@
 #pragma mark --------------------------------------------------
 #pragma mark JPNavigationControllerDelegate
 
--(BOOL)jp_navigationControllerShouldPushRight{
+- (BOOL)navigationControllerShouldStartPop:(JPNavigationController *)navigationController{
     [self backBtnClick:nil];
     return NO;
 }

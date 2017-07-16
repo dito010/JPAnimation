@@ -1,0 +1,7 @@
+platform :ios, '8.0'
+
+target "JPAnimationDemo" do
+
+pod 'JPNavigationController', '~> 2.0.0'
+
+end
