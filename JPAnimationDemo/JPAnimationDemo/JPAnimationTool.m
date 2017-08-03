@@ -222,9 +222,11 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
     
     // 保存关闭动画为 block
     __weak typeof(self) weakSelf = self;
+    __weak typeof(presentViewController) weakPresentViewController = presentViewController;
     JPContainIDBlock closeBlock = ^(UIViewController *tab){
         
         __strong typeof(weakSelf) strongSelf = weakSelf;
+        __strong typeof(weakPresentViewController) strongPresentViewController = weakPresentViewController;
         if (!strongSelf) return;
         
         
@@ -276,7 +278,7 @@ typedef NS_OPTIONS(NSInteger, JPTailorType) {
             [strongSelf enqueueForImageView:upAnimationImageView];
             [strongSelf enqueueForImageView:downAnimationImageView];
             
-            [presentViewController.navigationController popViewControllerAnimated:NO];
+            [strongPresentViewController.navigationController popViewControllerAnimated:NO];
             
             for (UIImageView *imageView in animationImageViews) {
                 [strongSelf enqueueForImageView:imageView];

@@ -33,6 +33,8 @@
             strongSelf.detailImageUpCons.constant = 0;
             [UIView animateWithDuration:0.45 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+                if (!strongSelf) return;
                 strongSelf.detailImageView.alpha = 1;
                 [strongSelf.view layoutIfNeeded];
                 
@@ -40,6 +42,10 @@
         };
     }
     return self;
+}
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
 }
 
 - (void)viewDidLoad {
