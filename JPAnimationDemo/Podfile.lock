@@ -1,12 +1,19 @@
 PODS:
+  - JPAnimation (0.1):
+    - JPNavigationController (= 2.0.0)
   - JPNavigationController (2.0.0)
 
 DEPENDENCIES:
-  - JPNavigationController (~> 2.0.0)
+  - JPAnimation (from `../`)
+
+EXTERNAL SOURCES:
+  JPAnimation:
+    :path: ../
 
 SPEC CHECKSUMS:
+  JPAnimation: 0354fc920a66f7bc292a4b6b8749d98e5180be19
   JPNavigationController: 5415f5fbeddd0c78cf0e889deb74f15f25da39d8
 
-PODFILE CHECKSUM: f2b550a42ed61c8f43715d722a5cee9106603f64
+PODFILE CHECKSUM: 3ae2463045eb38e635cbc5c424b6d996871e557a
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.3.1

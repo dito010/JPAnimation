@@ -12,7 +12,6 @@
 		5F1E3C8C1E14185500E1C1F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F1E3C8B1E14185500E1C1F7 /* AppDelegate.m */; };
 		5F1E3C941E14185500E1C1F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1E3C931E14185500E1C1F7 /* Assets.xcassets */; };
 		5F1E3C971E14185500E1C1F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1E3C951E14185500E1C1F7 /* LaunchScreen.storyboard */; };
-		5F1E3CD11E14187200E1C1F7 /* JPAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F1E3CCD1E14187200E1C1F7 /* JPAnimationTool.m */; };
 		5F1E3CD21E14187200E1C1F7 /* JPCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F1E3CCF1E14187200E1C1F7 /* JPCollectionViewCell.m */; };
 		5F1E3CD31E14187200E1C1F7 /* JPCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F1E3CD01E14187200E1C1F7 /* JPCollectionViewCell.xib */; };
 		5F1E3CDC1E14187900E1C1F7 /* JPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F1E3CD51E14187900E1C1F7 /* JPTableViewCell.m */; };
@@ -31,8 +30,6 @@
 		5F1E3C931E14185500E1C1F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F1E3C961E14185500E1C1F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F1E3C981E14185500E1C1F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5F1E3CCC1E14187200E1C1F7 /* JPAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPAnimationTool.h; sourceTree = "<group>"; };
-		5F1E3CCD1E14187200E1C1F7 /* JPAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPAnimationTool.m; sourceTree = "<group>"; };
 		5F1E3CCE1E14187200E1C1F7 /* JPCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCollectionViewCell.h; sourceTree = "<group>"; };
 		5F1E3CCF1E14187200E1C1F7 /* JPCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCollectionViewCell.m; sourceTree = "<group>"; };
 		5F1E3CD01E14187200E1C1F7 /* JPCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JPCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -98,7 +95,6 @@
 		5F1E3C861E14185500E1C1F7 /* JPAnimationDemo */ = {
 			isa = PBXGroup;
 			children = (
-				5F1E3CE31E15097300E1C1F7 /* JPAnimationTool */,
 				5F1E3CE21E14188D00E1C1F7 /* SecondViewController */,
 				5F1E3CE11E14188400E1C1F7 /* FirstViewController */,
 				5F1E3C8A1E14185500E1C1F7 /* AppDelegate.h */,
@@ -144,15 +140,6 @@
 			name = SecondViewController;
 			sourceTree = "<group>";
 		};
-		5F1E3CE31E15097300E1C1F7 /* JPAnimationTool */ = {
-			isa = PBXGroup;
-			children = (
-				5F1E3CCC1E14187200E1C1F7 /* JPAnimationTool.h */,
-				5F1E3CCD1E14187200E1C1F7 /* JPAnimationTool.m */,
-			);
-			name = JPAnimationTool;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -187,7 +174,7 @@
 				TargetAttributes = {
 					5F1E3C831E14185500E1C1F7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 95B6T5443Y;
+						DevelopmentTeam = 49H6GPPS8F;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -232,13 +219,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JPAnimationDemo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F2E21E2A4F6F05CBDF899128 /* [CP] Embed Pods Frameworks */ = {
@@ -262,9 +252,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-JPAnimationDemo/Pods-JPAnimationDemo-resources.sh",
+				"${PODS_ROOT}/JPNavigationController/JPNavigationController/JPNavigationController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -281,7 +274,6 @@
 				5F1E3CDF1E14187900E1C1F7 /* JPViewController.m in Sources */,
 				5F1E3CD21E14187200E1C1F7 /* JPCollectionViewCell.m in Sources */,
 				5F1E3CDC1E14187900E1C1F7 /* JPTableViewCell.m in Sources */,
-				5F1E3CD11E14187200E1C1F7 /* JPAnimationTool.m in Sources */,
 				5F1E3C8C1E14185500E1C1F7 /* AppDelegate.m in Sources */,
 				5F1E3C891E14185500E1C1F7 /* main.m in Sources */,
 				5F1E3CDE1E14187900E1C1F7 /* JPTableViewController.m in Sources */,
@@ -395,11 +387,11 @@
 			baseConfigurationReference = 6EC407E7867A84C2B29DF634 /* Pods-JPAnimationDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 95B6T5443Y;
+				DEVELOPMENT_TEAM = 49H6GPPS8F;
 				INFOPLIST_FILE = JPAnimationDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.NewPan.JPAnimation;
+				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.JPAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -409,11 +401,11 @@
 			baseConfigurationReference = 66DCF2729C8C3CC81B9AE55D /* Pods-JPAnimationDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 95B6T5443Y;
+				DEVELOPMENT_TEAM = 49H6GPPS8F;
 				INFOPLIST_FILE = JPAnimationDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.NewPan.JPAnimation;
+				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.JPAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
