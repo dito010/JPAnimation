@@ -13,3 +13,15 @@
 
 第二篇：[[iOS]过渡动画之高级模仿 airbnb ](http://www.jianshu.com/p/fd8a3f0c6f7f)，主要基于第一篇的理论来实现复杂的界面过渡，包括进入和退出动画的串联。最后将这个动画的实现部分与当前界面解耦，并封装为一个普适（其他类似界面也适用）的工具类。
 
+### 赞助
+你这一赞助，我写的就更来劲了！
+
+#### 微信赞助扫码
+<p align="left" >
+<img src="Images/wechat.png" title="Wechat" height="250" width="250" float=left>
+</p>
+
+#### 支付宝赞助扫码
+<p align="left" >
+<img src="Images/zhifubao.png" title="Zhifubao" height="250" width="250" float=left>
+</p>
